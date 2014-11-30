@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test</title>
+        <link rel="stylesheet" type="text/css" href="./static/css/reset.css" />
+        <style type = "text/css" >
+            html,body {
+                max-height:100%;
+                width:100%;
+                padding:0;
+                margin:0;
+            }
+
+            .hide {
+                display: none;
+            }
+            
+            .dialog {
+                width:250px;
+                height:250px;
+                position:absolute;
+                background-color:#ccc;
+                -webkit-box-shadow:1px 1px 3px #292929;
+                -moz-box-shadow:1px 1px 3px #292929;
+                box-shadow:1px 1px 3px #292929;
+                /*margin:10px;*/
+                z-index: 1;
+            }
+            
+            .dialog-title {
+                color:#fff;
+                background-color:#404040;
+                font-size:12pt;
+                font-weight:bold;
+                padding:4px 6px;
+                cursor:move;
+            }
+
+            .dialog-close {
+                display: inline-block;
+                position: absolute;
+                right: 3px;
+                top: 3px;
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+                background-image: url(./static/img/close.png);
+                background-size: contain;
+            }
+            
+            .dialog-content {
+                padding:4px;
+                height: 120px;
+            }
+
+            .dialog-textarea {
+                height: 70px;
+                width: 100%;
+            }
+
+            .dialog-textarea textarea {
+                padding: 0;
+                border: 0;
+                width: 100%;
+                height: 100%;
+                resize: none;
+            }
+
+            .dialog-btns {
+                text-align: right;
+            }
+
+            .main-panel {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                width: 200px;
+                border: 1px solid black;
+                /*禁止文本选中，可继承*/
+                -moz-user-select: none; /*火狐*/
+                -webkit-user-select: none;  /*webkit浏览器*/
+                -ms-user-select: none;   /*IE10*/
+                -khtml-user-select: none; /*早期浏览器*/
+                user-select: none;
+                /*height: 500px;*/
+                /*background-color: grey;*/
+            }
+            .main-panel .personal-message {
+                height: 40px;
+            }
+            .main-panel .relation-switch {
+                height: 20px;
+            }
+            .main-panel .relation-switch span {
+                display: block;
+                float: left;
+                width: 49%;
+                height: 100%;
+                border: 1px solid #ccc;
+                text-align: center;
+                cursor: pointer;
+            }
+            .main-panel .contacts {
+                height: 500px;
+                padding-left: 10px;
+            }
+            .main-panel .contacts ul {
+                height: 100%;
+                line-height: 25px;
+                font-size: 22px;
+                list-style: none;
+            }
+            .main-panel .contacts li.online:before {
+                display: inline-block;
+                content: "";
+                width: 15px;
+                height: 15px;
+                padding: 0 5px;
+                background: url(./static/img/online.png) no-repeat;
+                background-size: contain;
+            }
+            .main-panel .contacts li.offline:before {
+                display: inline-block;
+                content: "";
+                width: 15px;
+                height: 15px;
+                padding: 0 5px;
+                background: url(./static/img/offline.png) no-repeat;
+                background-size: contain;
+            }
+            .message-list-container {
+                position: fixed;
+                bottom: 30px;
+                left: calc(50% - 150px);
+                height: 24px;
+                width: 200px;
+                /*border: 1px solid #ccc;*/
+                overflow: hidden;
+            }
+            .message-list-container .message-list {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+            }
+            .message-list li {
+                line-height: 18px;
+                padding: 2px 10px;
+                border: 1px solid #ccc;
+                cursor: pointer;
+            }
+            .message-list li:hover {
+                background-color: #0099cc;
+            }
+        </style>
+    </head>
+    <body>
+        <div id = "dialog-model" class = "dialog hide">
+            <div class = "dialog-title">Dialog</div>
+            <div class="dialog-close" title="关闭"></div>
+            <div class = "dialog-content">
+                This is a draggable test.
+            </div>
+            <div class="dialog-textarea">
+                <textarea></textarea>
+            </div>
+            <div class="dialog-btns">
+                <button class="btn-dialog-close">关闭</button>
+                <button class="btn-dialog-submit">发送</button>
+            </div>
+        </div>
+        <div class="message-list-container">
+            <ul class="message-list">
+                <li data-userId="123456">测试一</li>
+                <li>测试二</li>
+                <li>测试三</li>
+            </ul>
+        </div>
+        <div class="main-panel">
+            <div class="personal-message">
+                <span class="personal-message-name"></span>
+            </div>
+            <div class="relation-switch">
+                <span>联系人</span>
+                <span>群</span>
+            </div>
+            <div class="contacts">
+                <ul class="contacts-list">
+                    <li data-userId="" class="online">online test</li>
+                    <li data-userId="" class="offline">offline test</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript" src="./static/js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="./static/js/drag.js"></script>
+    <script type="text/javascript" src="./static/js/message.js"></script>
+    <script type="text/javascript" src="./static/js/main.js"></script>
+    <script type="text/javascript">
+        $(".message-list-container").on("mouseover", function() {
+            $(this).css("overflow", "visible");
+        }).on("mouseout", function() {
+            $(this).css("overflow", "hidden");
+        })
+    </script>
+</html>
