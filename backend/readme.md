@@ -3,7 +3,7 @@
 ##协议设计
 ###协议包含四种数据交换类型
 * 请求（request）
-* 相应（response）
+* 响应（response）
 * 广播（broadcast）
 * 心跳（heartbeat）  
 
@@ -11,7 +11,7 @@
 * 请求  
 <table>
 	<tr>
-		<th>字段</th><th>值</th><th>含义</th>
+		
 	<tr>
 		<td>type<td>get<br>broadcast<td>get 请求相应<br>broadcast  请求广播到其他连接到服务器的客户端
 	<tr>
@@ -20,20 +20,52 @@
 		<td>data-type<td>string, json, file, image<td>传输的数据类型，包括字符串，json格式，文件，图片
 	<tr>
 		<td>data<td>任意字符串<td>传输的数据
-
+	<tr>
+		<td>delay<td>正整型，默认为0<td>相应延时，单位毫秒
+	<tr>
+		<td> keep-alive<td>布尔值<td>是否维持连接，若为否则响应之后立即断开连接
 </table>
-
-|| delay || 正整型，默认为0 || 相应延时，单位毫秒 ||
-		
-		
-|| keep-alive || 布尔值 || 是否维持连接，若为否则响应之后立即断开连接 ||
-
-
-
-
-##<br/>后台部分
+* 响应  
+<table>
+	<tr>
+		<th>字段</th><th>值</th><th>含义</th>
+	<tr>
+		<td>type<td>response<td>唯一值，与广播区分开
+	<tr>
+		<td>server<td>php,java,etc<td>服务器编程语言及版本
+	<tr>
+		<td>data-type<td>string, json, file, image<td>传输的数据类型，包括字符串，json格式，文件，图片
+	<tr>
+		<td>data<td>任意字符串<td>传输的数据
+	<tr>
+		<td>allow-alive<td>布尔值<td>是否允许维持连接，否表示不允许并已断开连接
+</table>
+* 广播  
+<table>
+	<tr>
+		<th>字段</th><th>值</th><th>含义</th>
+	<tr>
+		<td>type<td>broadcast<td>唯一值，与响应区分开
+	<tr>
+		<td>source<td>IP<td>请求广播的客户端IP
+	<tr>
+		<td>data-type<td>string, json, file, image<td>传输的数据类型，包括字符串，json格式，文件，图片
+	<tr>
+		<td>data<td>任意字符串<td>传输的数据
+</table>
+* 心跳
+<table>
+	<tr>
+		<th>字段</th><th>值</th><th>含义</th>
+	<tr>
+		<td>type<td>heartbeat<td>类别为心跳检测
+	<tr>
+		<td>interval<td>正整型，默认3000<td>心跳间隔，单位毫秒
+</table>
+<br />
+##后台部分
 ###后台目录讲解：
-><b>public.action.php：包含数据库配置信息，数据库封装函数  
+>public.action.php：包含数据库配置信息，数据库封装函数  
 >server.action.php：服务器类，含socket封装与功能函数调用  
 >socket.action.php：协议解析函数实现  
 >function.action.php：功能函数实现  
