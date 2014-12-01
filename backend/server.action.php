@@ -308,7 +308,6 @@
 
         function handleGet($function, $data, $count) {
             $this->sendDebugMessage("enter handleGet in ".$function);
-            var_dump($data);
             switch ($function) {
                 case 'register':
                     if(register($data)) {
@@ -358,23 +357,13 @@
 
         function handleBroadcast($function, $data, $count) {
             $this->sendDebugMessage("enter handleBroadcast ".$function);
-            var_dump($data);
             switch ($function) {
                 case 'friendList':
                     $this->broadcastClients();
                     break;
                 case 'chat':
-                    if(isset($data['isImage']) && $data['isImage']) {
-                        $dataType = "image";
-                        $returnData = array("uname" => $this->clientInfo[$count]['uname'], "chatcontent" => $data['image']);
-                        $returnData = json_encode($returnData);
-                    } else {
-                        $dataType = "json";
-                        $returnData = array("uname" => $this->clientInfo[$count]['uname'], "chatcontent" => $data);
-                        
-                    }
-                    var_dump($returnData);
-                    $this->broadcastData($returnData, array(), true, $dataType);
+                    $returnData = array("uname" => $this->clientInfo[$count]['uname'], "chatcontent" => $data);
+                    $this->broadcastData($returnData, array(), true);
                     break;
                 default:
                     # code...

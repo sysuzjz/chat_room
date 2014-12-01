@@ -27,9 +27,6 @@
     $in .= "Connection: close\r\n\r\n";
     $out = "";
     echo "sending http head request ...";
-    // socket_write($socket, $in, strlen($in));
-    $testIn = array('uname' => 'hah', 'password' => 'test');
-    $testIn = json_encode($testIn)."123\n";
     $testIn = array("password" => "1224456", "uname" => "xxxwy");
     $testIn = array("data" => json_encode($testIn), "dataType" => "json", "keepAlive" => "1", "delay" => "0", "type" => "get", "source" => "java", "function" => "kill");
     $testIn = json_encode($testIn);
@@ -44,13 +41,7 @@
         if(!empty($out)) {
             $data['msg'] = $out;
             insert("test", $data);
-            // file_put_contents("./test.png", $out);
-            // $image = imagecreatefrompng("./test.png");
-            // break;
-            // fwrite($ft, $out);
-            
         }
-
     }
     echo "closeing socket..";
     socket_close($socket);

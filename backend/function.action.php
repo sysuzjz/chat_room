@@ -111,6 +111,18 @@
         }
     }
 
+    function compressPic($pictureData) {
+        $tempPicDir = PIC_DIR."temp.png";
+        file_put_contents($tempPicDir, $pictureData);
+        $newImage = imagecreatetruecolor(PIC_W, PIC_H);
+        list($originWidth, $originHeight) = getimagesize($tempPicDir);
+        $tempPic = imagecreatefrompng($tempPicDir);
+        imagecopyresampled($newImage, $tempPic, 0, 0, 0, 0, PIC_W, PIC_H, $originWidth, $originHeight);
+        imagepng($newImage, $tempPicDir, 1);
+        $compressedPic = file_get_contents($tempPicDir);
+        return $compressedPic;
+    }
+
     
 
 ?>
