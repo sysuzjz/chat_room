@@ -1,4 +1,7 @@
 
+// 包含各未读信息
+var messageList = Array();
+
 /**
  *  @function    构造器，某条信息
  *  @param       json字符串格式
@@ -34,9 +37,6 @@ function User(message) {
         }
     }
 }
-
-// 包含各未读信息
-var messageList = Array();
 
 /**
  *  @function   添加未读信息，若messageList已包含该用户未读信息，则添加到此用户未读信息列表中；否则添加新的用户未读信息到messageList
@@ -90,8 +90,4 @@ function isInMsgList(userId) {
 
 function updateMsgList(userId) {
     
-}
-var example = new User(new Message('{"userId": "1234", "userName": "example", "time": "123445", "type": "1", "msg": "test"}'));
-for (prop in example) {
-    console.log(prop);
 }
